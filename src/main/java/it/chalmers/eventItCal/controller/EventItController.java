@@ -9,7 +9,7 @@ public class EventItController {
     @RequestMapping("/")
     public String index()
     {
-        return "EventIt!";
+        return "EventIT!";
     }
 }
 
