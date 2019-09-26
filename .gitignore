@@ -1,3 +1,6 @@
-./idea
-./out
-./gradle
+.idea
+out
+.gradle
+gradle
+gradlew
+gradlew.bat
