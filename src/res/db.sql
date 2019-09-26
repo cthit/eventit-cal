@@ -8,5 +8,6 @@ CREATE TABLE event (
     end_time DATE NOT NULLABLE,
     description VARCHAR NULLABLE,
     organizer VARCHAR NULLABLE,
-    contact VARCHAR NULLABLE
+    contact VARCHAR NULLABLE,
+    relevant_groups VARCHAR[] NULLABLE
 )

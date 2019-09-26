@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -36,6 +37,9 @@ public class Event {
     @Column(name = "contact")
     private String contact;
 
+    @Column(name = "relevant_groups")
+    private String[] relevantGroups;
+
     protected Event() {
         this.id = UUID.randomUUID();
     }
@@ -44,7 +48,7 @@ public class Event {
         return this.id;
     }
 
-    public void setId(UUID id){
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -52,7 +56,7 @@ public class Event {
         return this.name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -60,7 +64,7 @@ public class Event {
         return this.date;
     }
 
-    public void setDate(String date){
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -68,7 +72,7 @@ public class Event {
         return this.startTime;
     }
 
-    public void setStartTime(Date startTime){
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
@@ -76,7 +80,7 @@ public class Event {
         return this.endTime;
     }
 
-    public void setEndTime(Date endTime){
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -84,7 +88,7 @@ public class Event {
         return this.description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -92,7 +96,7 @@ public class Event {
         return this.organizer;
     }
 
-    public void setOrganizer(String organizer){
+    public void setOrganizer(String organizer) {
         this.organizer = organizer;
     }
 
@@ -100,12 +104,20 @@ public class Event {
         return this.contact;
     }
 
-    public void setContact(String contact){
+    public void setContact(String contact) {
         this.contact = contact;
     }
 
+    public String[] getRelevantGroups() {
+        return this.relevantGroups;
+    }
+
+    public void setRelevantGroups(String[] relevantGroups) {
+        this.relevantGroups = relevantGroups;
+    }
+
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -120,16 +132,17 @@ public class Event {
                 && Objects.equals(this.endTime, that.endTime)
                 && Objects.equals(this.description, that.description)
                 && Objects.equals(this.organizer, that.organizer)
-                && Objects.equals(this.contact, that.contact);
+                && Objects.equals(this.contact, that.contact)
+                && Arrays.equals(this.relevantGroups, that.relevantGroups);
     }
 
     @Override
-    public int hashCode(){
-        return Objects.hash(this.id, this.name, this.date, this.startTime, this.endTime, this.description, this.organizer, this.contact);
+    public int hashCode() {
+        return Objects.hash(this.id, this.name, this.date, this.startTime, this.endTime, this.description, this.organizer, this.contact, this.relevantGroups);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Event{"
                 + "id=" + this.id
                 + ", name=" + this.name
@@ -139,6 +152,7 @@ public class Event {
                 + ", description=" + this.description
                 + ", organizer=" + this.organizer
                 + ", contact=" + this.contact
+                + ", relevantGroups=" + Arrays.toString(this.relevantGroups)
                 + "}";
 
     }
