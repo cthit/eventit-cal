@@ -126,15 +126,15 @@ public class Event {
 
     @Override
     public String toString(){
-        return "Event{"
-                + "id=" + this.id
-                + ", name=" + this.name
-                + ", date=" + this.createDate
-                + ", startTime=" + this.startTime
-                + ", endTime=" + this.endTime
-                + ", description=" + this.description
-                + ", organizer=" + this.organizer
-                + ", contact=" + this.contact
+        return "{"
+                + "\"id\" :\"" + this.id
+                + "\", \"name\" : \"" + this.name
+                + "\", \"date\" : \"" + this.createDate
+                + "\", \"startTime\" : \"" + this.startTime
+                + "\", \"endTime\" : \"" + this.endTime
+                + "\", \"description\" : \"" + this.description
+                + "\", \"organizer\" : \"" + this.organizer
+                + "\", \"contact\" : \"" + this.contact
                 + "}";
     }
 }
