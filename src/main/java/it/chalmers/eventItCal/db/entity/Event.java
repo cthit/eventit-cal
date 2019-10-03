@@ -40,7 +40,8 @@ public class Event {
     @Column(name = "relevant_groups")
     private String[] relevantGroups;
 
-    public Event() {
+
+    protected Event() {
         this.id = UUID.randomUUID();
     }
 
@@ -59,7 +60,7 @@ public class Event {
     public Date getCreateDate() {
         return this.createDate;
     }
-
+  
     public void setCreateDate(Date date) {
         this.createDate = date;
     }
