@@ -6,7 +6,6 @@ import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.*;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,12 +29,6 @@ public class IcalUtil {
             }
             vEvent.getProperties().add(new Contact(event.getContact()));
             calendar.getComponents().add(vEvent);
-        }
-        try {
-            FileOutputStream fout = new FileOutputStream("/home/riddarvid/digit/eventit-cal/src/main/java/it/chalmers/eventItCal/utils/meep.ics");
-            toFile(fout, calendar);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
         return calendar.toString();
     }
