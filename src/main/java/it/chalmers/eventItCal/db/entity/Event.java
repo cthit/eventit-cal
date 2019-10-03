@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -36,7 +37,10 @@ public class Event {
     @Column(name = "contact")
     private String contact;
 
-    Event() {
+    @Column(name = "relevant_groups")
+    private String[] relevantGroups;
+
+    public Event() {
         this.id = UUID.randomUUID();
     }
 
@@ -44,11 +48,15 @@ public class Event {
         return this.id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -56,15 +64,15 @@ public class Event {
         return this.createDate;
     }
 
-    public void setCreateDate(Date createDate){
-        this.createDate = createDate;
+    public void setCreateDate(Date date) {
+        this.createDate = date;
     }
 
     public Date getStartTime() {
         return this.startTime;
     }
 
-    public void setStartTime(Date startTime){
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
@@ -72,7 +80,7 @@ public class Event {
         return this.endTime;
     }
 
-    public void setEndTime(Date endTime){
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -80,7 +88,7 @@ public class Event {
         return this.description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -88,7 +96,7 @@ public class Event {
         return this.organizer;
     }
 
-    public void setOrganizer(String organizer){
+    public void setOrganizer(String organizer) {
         this.organizer = organizer;
     }
 
@@ -96,12 +104,20 @@ public class Event {
         return this.contact;
     }
 
-    public void setContact(String contact){
+    public void setContact(String contact) {
         this.contact = contact;
     }
 
+    public String[] getRelevantGroups() {
+        return this.relevantGroups;
+    }
+
+    public void setRelevantGroups(String[] relevantGroups) {
+        this.relevantGroups = relevantGroups;
+    }
+
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -116,12 +132,13 @@ public class Event {
                 && Objects.equals(this.endTime, that.endTime)
                 && Objects.equals(this.description, that.description)
                 && Objects.equals(this.organizer, that.organizer)
-                && Objects.equals(this.contact, that.contact);
+                && Objects.equals(this.contact, that.contact)
+                && Arrays.equals(this.relevantGroups, that.relevantGroups);
     }
 
     @Override
-    public int hashCode(){
-        return Objects.hash(this.id, this.name, this.createDate, this.startTime, this.endTime, this.description, this.organizer, this.contact);
+    public int hashCode() {
+        return Objects.hash(this.id, this.name, this.createDate, this.startTime, this.endTime, this.description, this.organizer, this.contact, this.relevantGroups);
     }
 
     @Override
@@ -135,6 +152,18 @@ public class Event {
                 + "\", \"description\" : \"" + this.description
                 + "\", \"organizer\" : \"" + this.organizer
                 + "\", \"contact\" : \"" + this.contact
+                + "\", \"relevantGroups\" : " + relevantGroupsToString(this.relevantGroups)
                 + "}";
+    }
+
+    private String relevantGroupsToString(String[] s){
+        StringBuilder out = new StringBuilder();
+        out.append("[");
+        for(int i = 0; i < s.length - 1; i++){
+            out.append("\"" + s[i] + "\", ");
+        }
+        out.append("\"").append(s[s.length - 2]).append("\" ");
+        out.append("]");
+        return out.toString();
     }
 }
