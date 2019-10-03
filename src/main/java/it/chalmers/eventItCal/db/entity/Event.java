@@ -110,7 +110,6 @@ public class Event {
     }
 
     public void setRelevantGroups(String[] relevantGroups) {
-
         this.relevantGroups = Arrays.copyOf(relevantGroups, relevantGroups.length);
     }
 
@@ -136,7 +135,6 @@ public class Event {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(this.id, this.name, this.createDate, this.startTime, this.endTime, this.description, this.organizer, this.contact, this.relevantGroups);
     }
 
