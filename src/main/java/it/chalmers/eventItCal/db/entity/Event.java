@@ -129,7 +129,7 @@ public class Event {
         return "{"
                 + "\"id\" :\"" + this.id
                 + "\", \"name\" : \"" + this.name
-                + "\", \"date\" : \"" + this.date
+                + "\", \"date\" : \"" + this.createDate
                 + "\", \"startTime\" : \"" + this.startTime
                 + "\", \"endTime\" : \"" + this.endTime
                 + "\", \"description\" : \"" + this.description
