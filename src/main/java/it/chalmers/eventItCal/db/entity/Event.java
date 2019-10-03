@@ -19,8 +19,8 @@ public class Event {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "date")
-    private String date;
+    @Column(name = "create_date")
+    private Date createDate;
 
     @Column(name = "start_time")
     private Date startTime;
@@ -40,6 +40,7 @@ public class Event {
     @Column(name = "relevant_groups")
     private String[] relevantGroups;
 
+
     protected Event() {
         this.id = UUID.randomUUID();
     }
@@ -48,10 +49,10 @@ public class Event {
         return this.id;
     }
 
+
     public void setId(UUID id) {
         this.id = id;
     }
-
     public String getName() {
         return this.name;
     }
@@ -60,12 +61,12 @@ public class Event {
         this.name = name;
     }
 
-    public String getDate() {
-        return this.date;
+    public Date getCreateDate() {
+        return this.createDate;
     }
-
-    public void setDate(String date) {
-        this.date = date;
+  
+    public void setCreateDate(Date date) {
+        this.createDate = date;
     }
 
     public Date getStartTime() {
@@ -113,7 +114,8 @@ public class Event {
     }
 
     public void setRelevantGroups(String[] relevantGroups) {
-        this.relevantGroups = relevantGroups;
+
+        this.relevantGroups = Arrays.copyOf(relevantGroups, relevantGroups.length);
     }
 
     @Override
@@ -127,7 +129,7 @@ public class Event {
         Event that = (Event) o;
         return Objects.equals(this.id, that.id)
                 && Objects.equals(this.name, that.name)
-                && Objects.equals(this.date, that.date)
+                && Objects.equals(this.createDate, that.createDate)
                 && Objects.equals(this.startTime, that.startTime)
                 && Objects.equals(this.endTime, that.endTime)
                 && Objects.equals(this.description, that.description)
@@ -138,22 +140,33 @@ public class Event {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.date, this.startTime, this.endTime, this.description, this.organizer, this.contact, this.relevantGroups);
+
+        return Objects.hash(this.id, this.name, this.createDate, this.startTime, this.endTime, this.description, this.organizer, this.contact, this.relevantGroups);
     }
 
     @Override
-    public String toString() {
-        return "Event{"
-                + "id=" + this.id
-                + ", name=" + this.name
-                + ", date=" + this.date
-                + ", startTime=" + this.startTime
-                + ", endTime=" + this.endTime
-                + ", description=" + this.description
-                + ", organizer=" + this.organizer
-                + ", contact=" + this.contact
-                + ", relevantGroups=" + Arrays.toString(this.relevantGroups)
+    public String toString(){
+        return "{"
+                + "\"id\" :\"" + this.id
+                + "\", \"name\" : \"" + this.name
+                + "\", \"date\" : \"" + this.createDate
+                + "\", \"startTime\" : \"" + this.startTime
+                + "\", \"endTime\" : \"" + this.endTime
+                + "\", \"description\" : \"" + this.description
+                + "\", \"organizer\" : \"" + this.organizer
+                + "\", \"contact\" : \"" + this.contact
+                + "\", \"relevantGroups\" : " + relevantGroupsToString(this.relevantGroups)
                 + "}";
+    }
 
+    private String relevantGroupsToString(String[] s){
+        StringBuilder out = new StringBuilder();
+        out.append("[");
+        for(int i = 0; i < s.length - 1; i++){
+            out.append("\"" + s[i] + "\", ");
+        }
+        out.append("\"").append(s[s.length - 2]).append("\" ");
+        out.append("]");
+        return out.toString();
     }
 }
