@@ -18,8 +18,8 @@ public class Event {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "date")
-    private String date;
+    @Column(name = "create_date")
+    private Date createDate;
 
     @Column(name = "start_time")
     private Date startTime;
@@ -36,16 +36,12 @@ public class Event {
     @Column(name = "contact")
     private String contact;
 
-    protected Event() {
+    Event() {
         this.id = UUID.randomUUID();
     }
 
     public UUID getId() {
         return this.id;
-    }
-
-    public void setId(UUID id){
-        this.id = id;
     }
 
     public String getName() {
@@ -56,12 +52,12 @@ public class Event {
         this.name = name;
     }
 
-    public String getDate() {
-        return this.date;
+    public Date getCreateDate() {
+        return this.createDate;
     }
 
-    public void setDate(String date){
-        this.date = date;
+    public void setCreateDate(Date createDate){
+        this.createDate = createDate;
     }
 
     public Date getStartTime() {
@@ -115,7 +111,7 @@ public class Event {
         Event that = (Event) o;
         return Objects.equals(this.id, that.id)
                 && Objects.equals(this.name, that.name)
-                && Objects.equals(this.date, that.date)
+                && Objects.equals(this.createDate, that.createDate)
                 && Objects.equals(this.startTime, that.startTime)
                 && Objects.equals(this.endTime, that.endTime)
                 && Objects.equals(this.description, that.description)
@@ -125,7 +121,7 @@ public class Event {
 
     @Override
     public int hashCode(){
-        return Objects.hash(this.id, this.name, this.date, this.startTime, this.endTime, this.description, this.organizer, this.contact);
+        return Objects.hash(this.id, this.name, this.createDate, this.startTime, this.endTime, this.description, this.organizer, this.contact);
     }
 
     @Override
@@ -140,6 +136,5 @@ public class Event {
                 + "\", \"organizer\" : \"" + this.organizer
                 + "\", \"contact\" : \"" + this.contact
                 + "}";
-
     }
 }
