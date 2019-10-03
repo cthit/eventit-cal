@@ -113,7 +113,7 @@ public class Event {
     }
 
     public void setRelevantGroups(String[] relevantGroups) {
-        this.relevantGroups = relevantGroups;
+        this.relevantGroups = Arrays.copyOf(relevantGroups, relevantGroups.length);
     }
 
     @Override
