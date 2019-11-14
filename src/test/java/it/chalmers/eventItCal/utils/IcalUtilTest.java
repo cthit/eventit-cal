@@ -1,7 +1,6 @@
 package it.chalmers.eventItCal.utils;
 
 import it.chalmers.eventItCal.db.entity.Event;
-import it.chalmers.eventItCal.db.entity.EventFactory;
 import org.junit.Test;
 
 import java.util.*;
@@ -27,7 +26,14 @@ public class IcalUtilTest {
         description = "The greatest event ever known to man";
         organizer = "digIT";
         contact = "Håll aka root";
-        event = EventFactory.createEvent(name, startTime, endTime, description, organizer, contact);
+        event = new Event.Builder()
+                .setName(name)
+                .setStartTime(startTime)
+                .setEndTime(endTime)
+                .setDescription(description)
+                .setOrganizer(organizer)
+                .setContact(contact)
+                .build();
         events.add(event);
 
         //Creates test event
@@ -39,7 +45,14 @@ public class IcalUtilTest {
         description = "Ett spicey testevent";
         organizer = "HMK_Carl_Gustaf_XVI";
         contact = "Kontaktinfo";
-        event = EventFactory.createEvent(name, startTime, endTime, description, organizer, contact);
+        event = new Event.Builder()
+                .setName(name)
+                .setStartTime(startTime)
+                .setEndTime(endTime)
+                .setDescription(description)
+                .setOrganizer(organizer)
+                .setContact(contact)
+                .build();
         events.add(event);
 
         String iCalString = IcalUtil.getICal(events);

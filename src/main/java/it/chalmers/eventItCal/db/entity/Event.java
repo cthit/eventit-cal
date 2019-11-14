@@ -12,6 +12,65 @@ import java.util.UUID;
 @Entity
 @Table(name = "event")
 public class Event {
+
+    public static class Builder {
+        private String name;
+        private Date startTime;
+        private Date endTime;
+        private String description;
+        private String organizer;
+        private String contact;
+        private String[] relevantGroups;
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setStartTime(Date startTime) {
+            this.startTime = startTime;
+            return this;
+        }
+
+        public Builder setEndTime(Date endTime) {
+            this.endTime = endTime;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setOrganizer(String organizer) {
+            this.organizer = organizer;
+            return this;
+        }
+
+        public Builder setContact(String contact) {
+            this.contact = contact;
+            return this;
+        }
+
+        public Builder setRelevantGroups(String[] relevantGroups) {
+            this.relevantGroups = relevantGroups;
+            return this;
+        }
+
+        public Event build() {
+            Event event = new Event();
+            event.setName(name);
+            event.setStartTime(startTime);
+            event.setEndTime(endTime);
+            event.setDescription(description);
+            event.setOrganizer(organizer);
+            event.setContact(contact);
+            event.setCreateDate(new Date());
+            event.setRelevantGroups(relevantGroups);
+            return event;
+        }
+    }
+
     @Id
     @Column(updatable = false)
     private UUID id;
@@ -40,8 +99,7 @@ public class Event {
     @Column(name = "relevant_groups")
     private String[] relevantGroups;
 
-
-    protected Event() {
+    private Event() {
         this.id = UUID.randomUUID();
     }
 
@@ -110,7 +168,7 @@ public class Event {
     }
 
     public void setRelevantGroups(String[] relevantGroups) {
-        this.relevantGroups = Arrays.copyOf(relevantGroups, relevantGroups.length);
+        this.relevantGroups = relevantGroups;
     }
 
     @Override
@@ -157,7 +215,7 @@ public class Event {
         StringBuilder out = new StringBuilder();
         out.append("[");
         for(int i = 0; i < s.length - 1; i++){
-            out.append("\"" + s[i] + "\", ");
+            out.append("\"").append(s[i]).append("\", ");
         }
         out.append("\"").append(s[s.length - 2]).append("\" ");
         out.append("]");
