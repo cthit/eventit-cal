@@ -149,7 +149,7 @@ public class Event {
                 + "\", \"description\" : \"" + this.description
                 + "\", \"organizer\" : \"" + this.organizer
                 + "\", \"contact\" : \"" + this.contact
-                + "\", \"relevantGroups\" : " + relevantGroupsToString(this.relevantGroups)
+              //  + "\", \"relevantGroups\" : " + relevantGroupsToString(this.relevantGroups)
                 + "}";
     }
 

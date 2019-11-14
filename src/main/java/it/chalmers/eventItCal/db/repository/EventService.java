@@ -9,7 +9,7 @@ import java.util.UUID;
 public class EventService {
 
     @Autowired
-    EventRepository eventRepository;
+    IEventRepository eventRepository;
 
 
     public List<Event> getAllEvents(){
