@@ -1,35 +1,45 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
-    }
+plugins {
+	id 'org.springframework.boot' version '2.2.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+group = 'it.chalmers.digit'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
-bootJar {
-    baseName = 'gs-spring-boot'
-    version =  '0.1.0'
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
 }
 
 repositories {
-    mavenCentral()
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+ext {
+	set('springCloudVersion', "Hoxton.RC2")
+}
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    runtimeOnly 'com.h2database:h2'
-    compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile("junit:junit")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    compile group: 'org.mnode.ical4j', name: 'ical4j', version: '3.0.11'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	//implementation 'org.springframework.cloud:spring-cloud-starter-oauth2' // this makes it so it require some extra secureite login before you can access, we no want
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
 }

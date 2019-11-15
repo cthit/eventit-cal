@@ -1,15 +1,16 @@
 version: "2"
 services:
-    db:
-        image: postgres:12
-        restart: always
-        environment:
-            POSTGRES_PASSWORD: example
-        ports:
-            - 5432:5432
+  postgres:
+    image: postgres:10
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: example
 
-    adminer:
-        image: adminer
-        restart: always
-        ports:
-            - 8080:8080
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8040:8080
