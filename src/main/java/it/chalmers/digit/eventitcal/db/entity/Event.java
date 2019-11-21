@@ -1,11 +1,12 @@
 package it.chalmers.digit.eventitcal.db.entity;
 
+import org.apache.tomcat.jni.Time;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Objects;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.*;
 
 @Entity
 @Table(name = "event")
@@ -18,13 +19,13 @@ public class Event {
     private String name;
 
     @Column(name = "create_date")
-    private Date createDate;
+    private Timestamp createDate;
 
     @Column(name = "start_time")
-    private Date startTime;
+    private Timestamp startTime;
 
     @Column(name = "end_time")
-    private Date endTime;
+    private Timestamp endTime;
 
     @Column(name = "description")
     private String description;
@@ -36,14 +37,25 @@ public class Event {
     private String contact;
 
     @Column(name = "relevant_groups")
-    private String[] relevantGroups;
+    private String relevantGroups;
 
     @Column(name = "event_owner")
     private String owner;
 
+    protected Event(){
+    }
 
-    protected Event() {
+    public Event(String name,  Instant startTime, Instant endTime, String description, String organizer, String contact, String relevantGroups, String owner) {
         this.id = UUID.randomUUID();
+        this.name = name;
+        this.createDate = Timestamp.from(Instant.now());
+        this.startTime = Timestamp.from(startTime);
+        this.endTime = Timestamp.from(endTime);
+        this.description = description;
+        this.organizer = organizer;
+        this.contact = contact;
+        this.relevantGroups = relevantGroups;
+        this.owner = owner;
     }
 
     public UUID getId() {
@@ -62,24 +74,24 @@ public class Event {
         return this.createDate;
     }
 
-    public void setCreateDate(Date date) {
-        this.createDate = date;
+    public void setCreateDate(Instant date) {
+        this.createDate = Timestamp.from(date);
     }
 
     public Date getStartTime() {
         return this.startTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setStartTime(Instant startTime) {
+        this.startTime = Timestamp.from(startTime);
     }
 
     public Date getEndTime() {
         return this.endTime;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setEndTime(Instant endTime) {
+        this.endTime = Timestamp.from(endTime);
     }
 
     public String getDescription() {
@@ -106,12 +118,16 @@ public class Event {
         this.contact = contact;
     }
 
-    public String[] getRelevantGroups() {
+    public String getRelevantGroups() {
         return this.relevantGroups;
     }
 
-    public void setRelevantGroups(String[] relevantGroups) {
-        this.relevantGroups = Arrays.copyOf(relevantGroups, relevantGroups.length);
+    public String getOwner() { return owner;}
+
+    public void setOwner(String owner) {this.owner = owner;}
+
+    public void setRelevantGroups(String relevantGroups) {
+        this.relevantGroups = relevantGroups;
     }
 
     @Override
@@ -131,7 +147,7 @@ public class Event {
                 && Objects.equals(this.description, that.description)
                 && Objects.equals(this.organizer, that.organizer)
                 && Objects.equals(this.contact, that.contact)
-                && Arrays.equals(this.relevantGroups, that.relevantGroups)
+                && Objects.equals(this.relevantGroups, that.relevantGroups)
                 && Objects.equals(this.owner, that.owner);
     }
 
@@ -141,25 +157,25 @@ public class Event {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "{"
                 + "\"id\" :\"" + this.id
                 + "\", \"name\" : \"" + this.name
-                + "\", \"date\" : \"" + this.createDate
-                + "\", \"startTime\" : \"" + this.startTime
-                + "\", \"endTime\" : \"" + this.endTime
+                + "\", \"date\" : \"" + this.createDate.toString()
+                + "\", \"startTime\" : \"" + this.startTime.toString()
+                + "\", \"endTime\" : \"" + this.endTime.toString()
                 + "\", \"description\" : \"" + this.description
                 + "\", \"organizer\" : \"" + this.organizer
                 + "\", \"contact\" : \"" + this.contact
-                + "\", \"relevantGroups\" : " + relevantGroupsToString(this.relevantGroups)
+                + "\", \"relevantGroups\" : " + this.relevantGroups
                 + "\", \"owner\" : \"" + this.owner
-                + "}";
+                + "\"}";
     }
 
-    private String relevantGroupsToString(String[] s){
+    private String relevantGroupsToString(String[] s) {
         StringBuilder out = new StringBuilder();
         out.append("[");
-        for(int i = 0; i < s.length - 1; i++){
+        for (int i = 0; i < s.length - 1; i++) {
             out.append("\"" + s[i] + "\", ");
         }
         out.append("\"").append(s[s.length - 2]).append("\" ");
