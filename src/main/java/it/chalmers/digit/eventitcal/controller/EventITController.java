@@ -15,6 +15,7 @@ import java.time.temporal.TemporalField;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class EventITController {
@@ -50,10 +51,11 @@ public class EventITController {
         return sb.toString();
     }
 
-    @RequestMapping("/posttest/{obj}")
-    public String post( @PathVariable("obj") String obj) throws JSONException {
-
-        return obj;
+    @PostMapping("/testinsert")
+    public String methodName(@RequestBody Map<String, String> body )
+    {
+        System.out.println(body);
+        return "Meme: " + body.get("name");
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
