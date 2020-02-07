@@ -3,13 +3,17 @@ package it.chalmers.eventItCal.db.repository;
 import it.chalmers.eventItCal.db.entity.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.UUID;
 
 public class EventService {
 
+
     @Autowired
     IEventRepository eventRepository;
+
+
 
 
     public List<Event> getAllEvents(){
@@ -31,6 +35,8 @@ public class EventService {
     public void updateEvent(Event e){
         eventRepository.save(e);
     }
+
+
 
     public void saveEvent(Event e){
         eventRepository.save(e);
