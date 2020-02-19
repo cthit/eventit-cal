@@ -15,14 +15,14 @@ import java.util.Date;
 @RestController
 public class EventItController {
 
-
+    @Autowired
     private EventService eventService;
 
     @PostConstruct
     public void start() throws InterruptedException {
 
         //String name, Date startTime, Date endTime, String description, String organizer, String contact
-        eventService = new EventService();
+
         Date date = new Date();
 
 
@@ -39,8 +39,16 @@ public class EventItController {
     @RequestMapping("/calendar")
     public String calendar(){return "This is a calendar";}
 
-    @RequestMapping("/test")
-    public String test(){return iHateMyself(); }
+    @RequestMapping("/testget")
+    public String testget(){return iHateMyself(); }
+
+    @RequestMapping("/testadd")
+    public String testadd(){
+        EventFactory ef = new EventFactory();
+        Event event = ef.createEvent("Test event", new Date(), new Date(), "test desc", "digIT", "Nox");
+        eventService.saveEvent(event);
+        return  "I think added";
+    }
 
     private String iHateMyself(){
         String res = "";

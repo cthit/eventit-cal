@@ -2,11 +2,13 @@ package it.chalmers.eventItCal.db.repository;
 
 import it.chalmers.eventItCal.db.entity.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class EventService {
 
 
