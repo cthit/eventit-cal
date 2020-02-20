@@ -49,6 +49,8 @@ public class Event {
         return this.id;
     }
 
+    public void setId(UUID id){this.id = id;}
+
     public String getName() {
         return this.name;
     }

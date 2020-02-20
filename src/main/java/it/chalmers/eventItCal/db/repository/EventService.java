@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -16,35 +17,35 @@ public class EventService {
     IEventRepository eventRepository;
 
 
-
-
-    public List<Event> getAllEvents(){
-       return eventRepository.findAll();
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
     }
 
-    public Event getEvent(UUID id){
+    public Event getEvent(UUID id) {
         return eventRepository.getOne(id);
     }
 
-    public void deleteEvent(UUID id){
+    public void deleteEvent(UUID id) {
         eventRepository.delete(getEvent(id));
     }
 
-    public void deleteEvent(Event e){
+    public void deleteEvent(Event e) {
         eventRepository.delete(e);
     }
 
-    public void updateEvent(Event e){
+    public void updateEvent(Event e) {
         eventRepository.save(e);
     }
 
 
-
-    public void saveEvent(Event e){
+    public void saveEvent(Event e) {
         eventRepository.save(e);
     }
 
-    public void saveEvents(List<Event> events){
+    public void saveEvents(List<Event> events) {
         eventRepository.saveAll(events);
     }
+
 }
+
+
